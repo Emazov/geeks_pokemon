@@ -26,13 +26,12 @@ function App() {
 		setAllPokemon(pokemonData);
 	};
 
-	const nextDataHandler = () => {
-		apiUrl = dataApi.next;
-		fetchPokemon();
-	};
-
-	const prevDataHandler = () => {
-		apiUrl = dataApi.prev;
+	const dataApiHandler = (dir) => {
+		if (dir === 'prev') {
+			apiUrl = dataApi.prev;
+		} else if (dir === 'next') {
+			apiUrl = dataApi.next;
+		}
 
 		fetchPokemon();
 	};
@@ -58,8 +57,20 @@ function App() {
 					))}
 				</ul>
 
-				<button onClick={prevDataHandler}>Prev</button>
-				<button onClick={nextDataHandler}>Next</button>
+				<button
+					onClick={(e) => dataApiHandler(e.target.value)}
+					value='prev'
+					disabled={!dataApi.prev}
+				>
+					Prev
+				</button>
+				<button
+					onClick={(e) => dataApiHandler(e.target.value)}
+					value='next'
+					disabled={!dataApi.next}
+				>
+					Next
+				</button>
 			</div>
 		</div>
 	);
